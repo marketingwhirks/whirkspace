@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Whirkspace | Patrick Accounting Digital Signs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --navy: #1B365D;
+      --green: #84AE58;
+      --dark-green: #35542A;
+      --gold: #DA9423;
+      --light: #F8FAFC;
+    }
+
+    html, body {
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      font-family: 'Raleway', sans-serif;
+      background: #fff;
+      color: var(--navy);
+    }
+
+    /* ---- Slide Container ---- */
+    .slide {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 3vh 4vw;
+    }
+
+    /* Accent bars */
+    .slide::before, .slide::after {
+      content: '';
+      position: absolute;
+      left: 0; right: 0;
+      height: 6px;
+    }
+    .slide::before {
+      top: 0;
+      background: linear-gradient(90deg, var(--green), var(--navy));
+    }
+    .slide::after {
+      bottom: 0;
+      background: linear-gradient(90deg, var(--navy), var(--green));
+    }
+
+    /* Logo */
+    .logo {
+      height: 7vh;
+      min-height: 40px;
+      max-height: 80px;
+      margin-bottom: 3vh;
+      object-fit: contain;
+    }
+
+    /* Title */
+    .title {
+      font-size: clamp(36px, 6vw, 96px);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+      color: var(--navy);
+      text-align: center;
+    }
+
+    .subtitle {
+      font-size: clamp(16px, 2.5vw, 40px);
+      font-weight: 500;
+      color: var(--navy);
+      opacity: 0.7;
+      margin-top: 0.5vh;
+      text-align: center;
+    }
+
+    .details {
+      font-size: clamp(12px, 1.6vw, 28px);
+      font-weight: 400;
+      color: #64748B;
+      margin-top: 1vh;
+      text-align: center;
+      letter-spacing: 0.02em;
+    }
+
+    /* QR Container */
+    .qr-frame {
+      margin-top: 3vh;
+      padding: 2.5vh;
+      border-radius: 20px;
+      background: var(--light);
+      border: 2px solid rgba(132, 174, 88, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .qr-frame svg {
+      width: clamp(180px, 28vh, 400px);
+      height: clamp(180px, 28vh, 400px);
+    }
+
+    /* CTA */
+    .cta {
+      margin-top: 2.5vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.2vh;
+    }
+
+    .scan-badge {
+      background: var(--green);
+      color: #fff;
+      font-size: clamp(11px, 1.4vw, 22px);
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.8vh 2.5vw;
+      border-radius: 100px;
+    }
+
+    .url {
+      font-size: clamp(14px, 1.8vw, 32px);
+      font-weight: 700;
+      color: var(--navy);
+      letter-spacing: -0.01em;
+    }
+
+    /* Tagline */
+    .tagline {
+      position: absolute;
+      bottom: 3vh;
+      font-size: clamp(11px, 1.4vw, 24px);
+      font-weight: 500;
+      color: var(--green);
+      opacity: 0.6;
+      letter-spacing: 0.05em;
+    }
+  </style>
+</head>
+<body>
+  <div class="slide">
+    <img src="logos/dual_brand_full_logo.png" alt="Patrick Accounting | Whirks" class="logo">
+
+    <h1 class="title">Better Together</h1>
+    <p class="subtitle">2026 Firm Visit</p>
+    <p class="details">July 26 - 28, 2026 &nbsp;|&nbsp; Memphis, TN</p>
+
+    <div class="qr-frame" id="qr-container"></div>
+
+    <div class="cta">
+      <span class="scan-badge">Scan to Join</span>
+      <span class="url">events.patrickaccounting.com</span>
+    </div>
+
+    <span class="tagline">One Step Better</span>
+  </div>
+
+  <!-- Inline QR code generation - no external deps -->
+  <script>
+    // Minimal QR code generator (mode byte, ECC L, version auto)
+    // Uses canvas to render SVG-style QR
+    (function() {
+      const url = 'https://events.patrickaccounting.com';
+      const container = document.getElementById('qr-container');
+
+      // Use the qr-code API to generate
+      const img = document.createElement('img');
+      img.src = `https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=${encodeURIComponent(url)}&color=1B365D&bgcolor=F8FAFC&margin=1`;
+      img.alt = 'QR Code - events.patrickaccounting.com';
+      img.style.cssText = 'width: clamp(180px, 28vh, 400px); height: clamp(180px, 28vh, 400px); border-radius: 8px;';
+      container.appendChild(img);
+    })();
+  </script>
+</body>
+</html>
